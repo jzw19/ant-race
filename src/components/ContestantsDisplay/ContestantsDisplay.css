@@ -1,0 +1,12 @@
+.antImage {
+  width: 50%;
+}
+
+.antName {
+  font-weight: bold;
+}
+
+td {
+  width: 25%;
+  border: 0px solid black;
+}

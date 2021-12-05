@@ -1,0 +1,21 @@
+button {
+  color: rgb(240, 240, 240);
+  border-radius: 8px;
+  width: 128px;
+  height: 32px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.fetchAntsButton {
+  background-color: darkblue;
+}
+
+.startRaceButton {
+  background-color: darkgreen;
+}
+
+.roundingButton {
+  background-color: rgb(50, 50, 50);
+  width: 192px;
+}
