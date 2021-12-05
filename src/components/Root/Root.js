@@ -14,12 +14,14 @@ class Root extends Component {
     this.state = {
       antsData: [],
       probabilityData: [],
-      hasRaceStarted: false
+      hasRaceStarted: false,
+      shouldRoundResults: false
     }
 
     this.displayAntsData = this.displayAntsData.bind(this);
     this.fetchAntWinLikelihood = this.fetchAntWinLikelihood.bind(this);
     this.startRace = this.startRace.bind(this);
+    this.toggleRoundResults = this.toggleRoundResults.bind(this);
   }
 
   displayAntsData() {
@@ -58,6 +60,13 @@ class Root extends Component {
     });
   }
 
+  toggleRoundResults() {
+    this.setState({
+      ...this.state,
+      shouldRoundResults: !this.state.shouldRoundResults
+    });
+  }
+
   render() {
     return (
       <div className='root'>
@@ -67,8 +76,13 @@ class Root extends Component {
           antsData={this.state.antsData}
           probabilityData={this.state.probabilityData}
           hasRaceStarted={this.state.hasRaceStarted}
+          shouldRoundResults={this.state.shouldRoundResults}
         />
-        <ActionButtons displayData={this.displayAntsData} startRace={this.startRace}/>
+        <ActionButtons
+          displayData={this.displayAntsData}
+          startRace={this.startRace}
+          toggleRoundResults={this.toggleRoundResults}
+        />
       </div>
     );
   }

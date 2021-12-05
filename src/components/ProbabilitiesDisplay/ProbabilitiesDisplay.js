@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './ProbabilitiesDisplay.css';
-const ProbabilitiesDisplay = ({ antsData, probabilityData, hasRaceStarted }) => {
+const ProbabilitiesDisplay = ({ antsData, probabilityData, hasRaceStarted, shouldRoundResults }) => {
   const linkData = () => {
     const linkedData = [];
     for(let i = 0; i < antsData.length; i++) {
@@ -42,10 +42,18 @@ const ProbabilitiesDisplay = ({ antsData, probabilityData, hasRaceStarted }) => 
     for(const entry of sortedData) {
       const key = `probability_${i}`;
       i++;
+      let probabilityToDisplay = entry.probabilityOfWinning;
+      if(typeof probabilityToDisplay === 'number') {
+        if(shouldRoundResults) {
+          probabilityToDisplay = `${Math.round(probabilityToDisplay * 100)}%`;
+        } else {
+          probabilityToDisplay = `${probabilityToDisplay * 100}%`;
+        }
+      }
       displayElements.push(
       <tr className='contestantProbability' key={key}>
         <td>{entry.name}</td>
-        <td>{entry.probabilityOfWinning * 100}%</td>
+        <td>{probabilityToDisplay}</td>
       </tr>)
     }
     return (

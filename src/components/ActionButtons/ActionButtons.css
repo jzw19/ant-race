@@ -14,3 +14,8 @@ button {
 .startRaceButton {
   background-color: darkgreen;
 }
+
+.roundingButton {
+  background-color: rgb(50, 50, 50);
+  width: 192px;
+}
