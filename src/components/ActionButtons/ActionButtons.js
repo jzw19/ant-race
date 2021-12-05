@@ -1,10 +1,16 @@
+import React from 'react';
 
-
-export const ActionButtons = ({ displayData, startRace }) => {
+import './ActionButtons.css';
+export const ActionButtons = ({ displayData, startRace, toggleRoundResults }) => {
   return (
     <div>
-      <button onClick={displayData}>Fetch Ants</button>
-      <button onClick={startRace}>Start Race</button>
+      <div className='primaryButtons'>
+        <button className='fetchAntsButton' onClick={displayData}>Fetch Ants</button>
+        <button className='startRaceButton' onClick={startRace}>Start Race</button>
+      </div>
+      <div className='secondaryButtons'>
+        <button className='roundingButton' onClick={toggleRoundResults}>Round results</button>
+      </div>
     </div>
   );
 }
