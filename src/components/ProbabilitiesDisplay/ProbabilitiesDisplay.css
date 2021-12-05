@@ -1,0 +1,14 @@
+th, td {
+  border: 1px solid black;
+}
+
+.probabilityDisplayContainer {
+  border: 2px solid black;
+  margin-inline: 10%;
+  margin-block: 2%;
+  text-align: center;
+}
+
+.raceTableColumnHeaders {
+  font-weight: bold;
+}

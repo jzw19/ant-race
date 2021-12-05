@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 
 import ActionButtons from "../ActionButtons/ActionButtons";
-import DataDisplay from "../DataDisplay/DataDisplay";
+import ContestantsDisplay from "../ContestantsDisplay/ContestantsDisplay";
 import ProbabilitiesDisplay from "../ProbabilitiesDisplay/ProbabilitiesDisplay";
 
 import api from "../../util/api";
 import generateAntWinLikelihoodCalculator from "../../util/helpers";
 
+import './Root.css';
 class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
       antsData: [],
-      probabilityData: []
+      probabilityData: [],
+      hasRaceStarted: false
     }
 
     this.displayAntsData = this.displayAntsData.bind(this);
@@ -35,7 +37,6 @@ class Root extends Component {
   fetchAntWinLikelihood(index) {
     return new Promise(generateAntWinLikelihoodCalculator()).then((resolved) => {
       const nextProbabilityData = this.state.probabilityData.slice();
-      console.log(resolved);
       nextProbabilityData[index] = resolved;
       this.setState({
         ...this.state,
@@ -48,20 +49,26 @@ class Root extends Component {
     const nextProbabilityData = this.state.probabilityData.slice();
     for(let i = 0; i < this.state.antsData.length; i++) {
       this.fetchAntWinLikelihood(i);
-      nextProbabilityData[i] = 'Loading...';
+      nextProbabilityData[i] = 'In progress';
     }
     this.setState({
       ...this.state,
-      probabilityData: nextProbabilityData
+      probabilityData: nextProbabilityData,
+      hasRaceStarted: true
     });
   }
 
   render() {
     return (
       <div className='root'>
+        <span className='contestantsTitle'>CONTEST'ANTS'</span>
+        <ContestantsDisplay antsData={this.state.antsData}/>
+        <ProbabilitiesDisplay
+          antsData={this.state.antsData}
+          probabilityData={this.state.probabilityData}
+          hasRaceStarted={this.state.hasRaceStarted}
+        />
         <ActionButtons displayData={this.displayAntsData} startRace={this.startRace}/>
-        <DataDisplay antsData={this.state.antsData}/>
-        <ProbabilitiesDisplay antsData={this.state.antsData} probabilityData={this.state.probabilityData}/>
       </div>
     );
   }
