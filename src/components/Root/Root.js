@@ -26,9 +26,9 @@ class Root extends Component {
 
   displayAntsData() {
     api.fetchAnts().then((response) => {
+      console.log('got response');
       const nextProbabilityData = [];
       response.data.ants.forEach(() => nextProbabilityData.push('Not yet run'));
-
       this.setState({
         antsData: response.data.ants,
         probabilityData: nextProbabilityData
@@ -52,6 +52,7 @@ class Root extends Component {
     for(let i = 0; i < this.state.antsData.length; i++) {
       this.fetchAntWinLikelihood(i);
       nextProbabilityData[i] = 'In progress';
+      console.log('got here')
     }
     this.setState({
       ...this.state,

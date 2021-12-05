@@ -53,7 +53,7 @@ const ProbabilitiesDisplay = ({ antsData, probabilityData, hasRaceStarted, shoul
       displayElements.push(
       <tr className='contestantProbability' key={key}>
         <td>{entry.name}</td>
-        <td>{probabilityToDisplay}</td>
+        <td data-testid='visibleProbability'>{probabilityToDisplay}</td>
       </tr>)
     }
     return (

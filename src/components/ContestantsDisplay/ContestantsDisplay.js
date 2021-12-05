@@ -8,6 +8,7 @@ const ContestantsDisplay = ({ antsData }) => {
   const displayAntImage = (color) => {
     switch(color.toLowerCase()) {
       case 'grey':
+      case 'gray':
       case 'silver':
         return <img className='antImage' alt='grey ant' src={GreyAnt} />
       case 'red':
@@ -41,6 +42,9 @@ const ContestantsDisplay = ({ antsData }) => {
           </div>
         </td>
       );
+    }
+    if(rowElements.length) {
+      displayElements.push(<tr key={`contestantRow_${Math.floor(antsData.length / 4) + 1}`}>{rowElements}</tr>);
     }
 
     return (
