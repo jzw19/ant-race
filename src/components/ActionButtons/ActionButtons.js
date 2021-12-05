@@ -9,7 +9,7 @@ export const ActionButtons = ({ displayData, startRace, toggleRoundResults }) =>
         <button className='startRaceButton' onClick={startRace}>Start Race</button>
       </div>
       <div className='secondaryButtons'>
-        <button className='roundingButton' onClick={toggleRoundResults}>Round results</button>
+        <button className='roundingButton' onClick={toggleRoundResults}>Round Results</button>
       </div>
     </div>
   );
