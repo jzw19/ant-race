@@ -1,3 +1,15 @@
+# Notes from the author
+
+This project was made under the following assumptions:
+
+* The use of Redux is not allowed
+* The function generateAntWinLikelihoodCalculator() {...} may not be changed in any way
+
+The following actions are ready for viewers:
+* Run the app (yarn start)
+* Run the unit tests (yarn test)
+* Run the unit tests and produce a code coverage report (yarn test:coverage)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -18,6 +30,10 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn test:coverage`
+
+Identical to yarn test, but also produces a coverage report after tests have finished running.
 
 ### `yarn build`
 
