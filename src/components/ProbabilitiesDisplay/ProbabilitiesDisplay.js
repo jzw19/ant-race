@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './ProbabilitiesDisplay.css';
-const ProbabilitiesDisplay = ({ antsData, probabilityData, hasRaceStarted, shouldRoundResults }) => {
+const ProbabilitiesDisplay = ({
+  antsData,
+  probabilityData,
+  hasRaceStarted,
+  shouldRoundResults
+}) => {
   const linkData = () => {
     const linkedData = [];
     for(let i = 0; i < antsData.length; i++) {
@@ -38,11 +44,11 @@ const ProbabilitiesDisplay = ({ antsData, probabilityData, hasRaceStarted, shoul
       </tr>
     );
 
-    let i = 0;
-    for(const entry of sortedData) {
+    for(let i = 0; i < sortedData.length; i++) {
       const key = `probability_${i}`;
-      i++;
-      let probabilityToDisplay = entry.probabilityOfWinning;
+      // let rowClassName = 'contestantProbability';
+      let probabilityToDisplay = sortedData[i].probabilityOfWinning;
+
       if(typeof probabilityToDisplay === 'number') {
         if(shouldRoundResults) {
           probabilityToDisplay = `${Math.round(probabilityToDisplay * 100)}%`;
@@ -50,17 +56,28 @@ const ProbabilitiesDisplay = ({ antsData, probabilityData, hasRaceStarted, shoul
           probabilityToDisplay = `${probabilityToDisplay * 100}%`;
         }
       }
-      displayElements.push(
-      <tr className='contestantProbability' key={key}>
-        <td>{entry.name}</td>
-        <td data-testid='visibleProbability'>{probabilityToDisplay}</td>
-      </tr>)
+      
+      if(i === sortedData.length - 1) {
+        displayElements.push(
+          <tr className='contestantProbability' key={key}>
+            <td className='finalContestantName'>{sortedData[i].name}</td>
+            <td className='finalContestantProbability' data-testid='visibleProbability'>{probabilityToDisplay}</td>
+          </tr>
+        );
+      } else {
+        displayElements.push(
+          <tr className='contestantProbability' key={key}>
+            <td>{sortedData[i].name}</td>
+            <td data-testid='visibleProbability'>{probabilityToDisplay}</td>
+          </tr>
+        );
+      }
     }
     return (
       <table className='probabilitiesTable' cellPadding='5%' cellSpacing='0'>
         <thead>
           <tr>
-            <th colSpan='2'>ANT RACE</th>
+            <th className='probabilitiesTableTitle' colSpan='2'>ANT RACE</th>
           </tr>
           <tr>
           <th colSpan='2'>{raceStatusLabel + raceStatusText}</th>
@@ -78,6 +95,22 @@ const ProbabilitiesDisplay = ({ antsData, probabilityData, hasRaceStarted, shoul
       {prettyPrintProbabilityData()}
     </div>
   )
+};
+
+ProbabilitiesDisplay.propTypes = {
+  antsData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+      length: PropTypes.number.isRequired,
+      weight: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  probabilityData: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
+  hasRaceStarted: PropTypes.bool.isRequired,
+  shouldRoundResults: PropTypes.bool
 };
 
 export default ProbabilitiesDisplay;

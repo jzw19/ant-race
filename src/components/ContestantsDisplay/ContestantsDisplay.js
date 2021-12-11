@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import BlackAnt from '../../img/ants/ant-black.jpg';
 import RedAnt from '../../img/ants/ant-red.jpg';
 import GreyAnt from '../../img/ants/ant-grey.jpg';
@@ -61,6 +62,17 @@ const ContestantsDisplay = ({ antsData }) => {
       {prettyPrintData()}
     </div>
   );
+};
+
+ContestantsDisplay.propTypes = {
+  antsData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+      length: PropTypes.number.isRequired,
+      weight: PropTypes.number.isRequired
+    })
+  ).isRequired
 };
 
 export default ContestantsDisplay;

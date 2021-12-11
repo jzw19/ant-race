@@ -4,9 +4,22 @@ th, td {
 
 .probabilityDisplayContainer {
   border: 2px solid black;
+  border-radius: 20px;
   margin-inline: 10%;
   margin-block: 2%;
   text-align: center;
+}
+
+.probabilitiesTableTitle {
+  border-radius: 18px 18px 0 0;
+}
+
+.finalContestantName {
+  border-radius: 0 0 0 18px;
+}
+
+.finalContestantProbability {
+  border-radius: 0 0 18px 0;
 }
 
 .raceTableColumnHeaders {
