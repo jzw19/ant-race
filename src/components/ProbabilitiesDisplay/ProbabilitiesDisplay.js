@@ -46,7 +46,6 @@ const ProbabilitiesDisplay = ({
 
     for(let i = 0; i < sortedData.length; i++) {
       const key = `probability_${i}`;
-      // let rowClassName = 'contestantProbability';
       let probabilityToDisplay = sortedData[i].probabilityOfWinning;
 
       if(typeof probabilityToDisplay === 'number') {

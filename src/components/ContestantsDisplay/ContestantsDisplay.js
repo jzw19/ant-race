@@ -1,22 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BlackAnt from '../../img/ants/ant-black.jpg';
-import RedAnt from '../../img/ants/ant-red.jpg';
-import GreyAnt from '../../img/ants/ant-grey.jpg';
+import { ANT_IMAGES } from '../../util/constants';
 
 import './ContestantsDisplay.css';
 const ContestantsDisplay = ({ antsData }) => {
   const displayAntImage = (color) => {
-    switch(color.toLowerCase()) {
-      case 'grey':
-      case 'gray':
-      case 'silver':
-        return <img className='antImage' alt='grey ant' src={GreyAnt} />
-      case 'red':
-        return <img className='antImage' alt='red ant' src={RedAnt} />
-      default:
-        return <img className='antImage' alt='black ant' src={BlackAnt} />
+    const altText = `${color} ant`;
+    if(ANT_IMAGES[color]) {
+      return <img className='antImage' alt={altText} src={ANT_IMAGES[color]} />
     }
+
+    return <img className='antImage' alt='unknown color ant' src={ANT_IMAGES['unknown']} />;
   };
 
   const prettyPrintData = () => {

@@ -26,6 +26,7 @@ class Root extends Component {
 
   displayAntsData() {
     api.fetchAnts().then((response) => {
+      console.log(response);
       const nextProbabilityData = [];
       response.data.ants.forEach(() => nextProbabilityData.push('Not yet run'));
       this.setState({
