@@ -46,7 +46,7 @@ describe('Root', () => {
     expect(api.fetchAnts).toHaveBeenCalled();
   });
 
-  it('given the user has fetched ant data, when the user clicks the button to start the race and the race finishes, then the app displays text to indicate that calculations are done', () => {
+  it('given the user has fetched ant data, when the user clicks the button to start the race and the race finishes, then the app displays text to indicate that calculations are done', async () => {
     render(<Root />);
 
     const fetchAntDataButton = screen.queryByText('Fetch Ants');

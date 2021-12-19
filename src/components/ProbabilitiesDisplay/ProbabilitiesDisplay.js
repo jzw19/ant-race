@@ -37,16 +37,16 @@ const ProbabilitiesDisplay = ({
     }
 
     const displayElements = [];
+
     displayElements.push(
       <tr className='raceTableColumnHeaders' key='status'>
-        <td>Contest'ant'</td>
-        <td>Likelihood of winning</td>
+        <td className={antsData.length ? '' : 'finalLeftCell'}>Contest'ant'</td>
+        <td className={antsData.length ? '' : 'finalRightCell'}>Likelihood of winning</td>
       </tr>
     );
 
     for(let i = 0; i < sortedData.length; i++) {
       const key = `probability_${i}`;
-      // let rowClassName = 'contestantProbability';
       let probabilityToDisplay = sortedData[i].probabilityOfWinning;
 
       if(typeof probabilityToDisplay === 'number') {
@@ -60,8 +60,8 @@ const ProbabilitiesDisplay = ({
       if(i === sortedData.length - 1) {
         displayElements.push(
           <tr className='contestantProbability' key={key}>
-            <td className='finalContestantName'>{sortedData[i].name}</td>
-            <td className='finalContestantProbability' data-testid='visibleProbability'>{probabilityToDisplay}</td>
+            <td className='finalLeftCell'>{sortedData[i].name}</td>
+            <td className='finalRightCell' data-testid='visibleProbability'>{probabilityToDisplay}</td>
           </tr>
         );
       } else {

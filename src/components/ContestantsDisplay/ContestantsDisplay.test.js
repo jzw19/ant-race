@@ -30,7 +30,7 @@ describe('ContestantsDisplay', () => {
     }
     render(<ContestantsDisplay {...props} />);
 
-    const antImage = screen.queryByAltText('grey ant');
+    const antImage = screen.queryByAltText('gray ant');
     const antName = screen.queryByText("Susan B. 'Ant'hony");
     const antColor = screen.queryByText('Color: gray');
     const antLength = screen.queryByText('Length: 2');
@@ -81,8 +81,12 @@ describe('ContestantsDisplay', () => {
     render(<ContestantsDisplay {...props} />);
 
     const greyAntImages = screen.queryAllByAltText('grey ant');
+    const grayAntImages = screen.queryAllByAltText('gray ant');
+    const silverAntImages = screen.queryAllByAltText('silver ant');
 
-    expect(greyAntImages.length).toEqual(5);
+    expect(greyAntImages.length).toEqual(2);
+    expect(grayAntImages.length).toEqual(2);
+    expect(silverAntImages.length).toEqual(1);
   });
 
   it('renders expected images when red ant is provided', () => {

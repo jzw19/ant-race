@@ -14,11 +14,11 @@ th, td {
   border-radius: 18px 18px 0 0;
 }
 
-.finalContestantName {
+.finalLeftCell {
   border-radius: 0 0 0 18px;
 }
 
-.finalContestantProbability {
+.finalRightCell {
   border-radius: 0 0 18px 0;
 }
 
