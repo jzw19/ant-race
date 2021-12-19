@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import ActionButtons from "../ActionButtons/ActionButtons";
 import ContestantsDisplay from "../ContestantsDisplay/ContestantsDisplay";
@@ -8,84 +8,66 @@ import api from "../../util/api";
 import generateAntWinLikelihoodCalculator from "../../util/helpers";
 
 import './Root.css';
-class Root extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      antsData: [],
-      probabilityData: [],
-      hasRaceStarted: false,
-      shouldRoundResults: false
-    }
+export const Root = () => {
+  const [antsData, setAntsData] = useState([]);
+  const [hasRaceStarted, setHasRaceStarted] = useState(false);
+  const [shouldRoundResults, setShouldRoundResults] = useState(false);
 
-    this.displayAntsData = this.displayAntsData.bind(this);
-    this.fetchAntWinLikelihood = this.fetchAntWinLikelihood.bind(this);
-    this.startRace = this.startRace.bind(this);
-    this.toggleRoundResults = this.toggleRoundResults.bind(this);
-  }
+  const [probabilityData, setProbabilityData] = useState([]);
+  const [updatedDataEntry, setUpdatedDataEntry] = useState([-1, -1]); // [index, value]
 
-  displayAntsData() {
+  useEffect(() => {
+    const updatedProbabilityData = [...probabilityData];
+    updatedProbabilityData[updatedDataEntry[0]] = updatedDataEntry[1];
+    setProbabilityData(updatedProbabilityData);
+  }, [updatedDataEntry]);
+
+  const displayAntsData = () => {
     api.fetchAnts().then((response) => {
-      console.log(response);
       const nextProbabilityData = [];
       response.data.ants.forEach(() => nextProbabilityData.push('Not yet run'));
-      this.setState({
-        antsData: response.data.ants,
-        probabilityData: nextProbabilityData
-      });
+      setAntsData(response.data.ants);
+      setProbabilityData(nextProbabilityData);
     });
   }
 
-  fetchAntWinLikelihood(index) {
+  const fetchAntWinLikelihood = (index) => {
     return new Promise(generateAntWinLikelihoodCalculator()).then((resolved) => {
-      const nextProbabilityData = this.state.probabilityData.slice();
-      nextProbabilityData[index] = resolved;
-      this.setState({
-        ...this.state,
-        probabilityData: nextProbabilityData
-      });
+      setUpdatedDataEntry([index, resolved]);
     });
   }
 
-  startRace() {
-    const nextProbabilityData = this.state.probabilityData.slice();
-    for(let i = 0; i < this.state.antsData.length; i++) {
-      this.fetchAntWinLikelihood(i);
+  const startRace = () => {
+    const nextProbabilityData = probabilityData.slice();
+    for(let i = 0; i < antsData.length; i++) {
+      fetchAntWinLikelihood(i);
       nextProbabilityData[i] = 'In progress';
     }
-    this.setState({
-      ...this.state,
-      probabilityData: nextProbabilityData,
-      hasRaceStarted: true
-    });
+    setProbabilityData(nextProbabilityData);
+    setHasRaceStarted(true);
   }
 
-  toggleRoundResults() {
-    this.setState({
-      ...this.state,
-      shouldRoundResults: !this.state.shouldRoundResults
-    });
+  const toggleRoundResults = () => {
+    setShouldRoundResults(!shouldRoundResults);
   }
 
-  render() {
-    return (
-      <div className='root'>
-        <span className='contestantsTitle'>CONTEST'ANTS'</span>
-        <ContestantsDisplay antsData={this.state.antsData}/>
-        <ProbabilitiesDisplay
-          antsData={this.state.antsData}
-          probabilityData={this.state.probabilityData}
-          hasRaceStarted={this.state.hasRaceStarted}
-          shouldRoundResults={this.state.shouldRoundResults}
-        />
-        <ActionButtons
-          displayData={this.displayAntsData}
-          startRace={this.startRace}
-          toggleRoundResults={this.toggleRoundResults}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className='root'>
+      <span className='contestantsTitle'>CONTEST'ANTS'</span>
+      <ContestantsDisplay antsData={antsData}/>
+      <ProbabilitiesDisplay
+        antsData={antsData}
+        probabilityData={probabilityData}
+        hasRaceStarted={hasRaceStarted}
+        shouldRoundResults={shouldRoundResults}
+      />
+      <ActionButtons
+        displayData={displayAntsData}
+        startRace={startRace}
+        toggleRoundResults={toggleRoundResults}
+      />
+    </div>
+  );
 }
 
 export default Root;

@@ -41,7 +41,7 @@ export const AVAILABLE_COLORS = [
   'silver'
 ];
 
-export const MAX_ANT_COUNT = 30;
+export const MAX_ANT_COUNT = 20;
 
 export const MAX_ANT_LENGTH = 40;
 
